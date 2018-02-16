@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/onaio/Workspace/opensrp-client-tbr/json2view/src/androidTest/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="test_string">test string value mpla mpla</string>
+</resources>
