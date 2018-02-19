@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
 
+import com.avocarrot.json2view.DynamicView;
+
 import org.json.JSONObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.R;
@@ -20,7 +22,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
-
 
 /**
  * Created by samuelgithengi on 11/21/17.
@@ -164,12 +165,6 @@ public class ConfigurableViewsHelper {
         }
 
         return json2View;
-    }
-
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void setJsonViewsEnabled(ViewConfigurationSyncCompleteEvent syncCompleteEvent) {
-        if (syncCompleteEvent != null && ConfigurableViewsLibrary.getJsonSpecHelper().getMainConfiguration() != null)
-            jsonViewsEnabled = ConfigurableViewsLibrary.getJsonSpecHelper().getMainConfiguration().isEnableJsonViews();
     }
 
     public boolean isJsonViewsEnabled() {
