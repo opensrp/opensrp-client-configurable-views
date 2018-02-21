@@ -41,6 +41,8 @@ public class ConfigurableViewsHelper {
 
     private boolean jsonViewsEnabled;
 
+    private final Map<String, ViewConfiguration> viewConfigurations = new ConcurrentHashMap<>();
+
     public ConfigurableViewsHelper(ConfigurableViewsRepository configurableViewsRepository, JsonSpecHelper jsonSpecHelper, Context context) {
         this.configurableViewsRepository = configurableViewsRepository;
         this.jsonSpecHelper = jsonSpecHelper;
@@ -49,8 +51,6 @@ public class ConfigurableViewsHelper {
         if (ConfigurableViewsLibrary.getJsonSpecHelper().getMainConfiguration() != null)
             jsonViewsEnabled = ConfigurableViewsLibrary.getJsonSpecHelper().getMainConfiguration().isEnableJsonViews();
     }
-
-    private final Map<String, ViewConfiguration> viewConfigurations = new ConcurrentHashMap<>();
 
     public void registerViewConfigurations(List<String> viewIdentifiers) {
         for (String viewIdentifier : viewIdentifiers) {

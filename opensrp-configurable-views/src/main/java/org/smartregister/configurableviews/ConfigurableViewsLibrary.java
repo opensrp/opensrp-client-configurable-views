@@ -34,10 +34,10 @@ public class ConfigurableViewsLibrary {
     }
 
     private ConfigurableViewsLibrary(Context context, Repository repository) {
-        this.context = context;
+        ConfigurableViewsLibrary.context = context;
         this.repository = repository;
         //Initialize JsonSpec Helper
-        this.jsonSpecHelper = new JsonSpecHelper(context.applicationContext());
+        ConfigurableViewsLibrary.jsonSpecHelper = new JsonSpecHelper(context.applicationContext());
     }
 
 

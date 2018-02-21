@@ -14,8 +14,5 @@ public class ConfigurableViewsSampleActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configurable_views_sample);
 
-        ConfigurableViewsRepository repository = ConfigurableViewsLibrary.getInstance().getConfigurableViewsRepository();
-
-        repository.toString();
     }
 }
