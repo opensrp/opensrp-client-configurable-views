@@ -1,9 +1,12 @@
 package org.smartregister.configurableviews.sample.application;
 
+import android.content.Intent;
+
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.sample.repository.SampleRepository;
+import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
 import org.smartregister.repository.Repository;
 import org.smartregister.view.activity.DrishtiApplication;
 
@@ -29,6 +32,13 @@ public class SampleApplication extends DrishtiApplication {
         CoreLibrary.init(context);
         ConfigurableViewsLibrary.init(context, getRepository());
 
+        startPullConfigurableViewsIntentService(getApplicationContext());
+
+    }
+
+    public void startPullConfigurableViewsIntentService(android.content.Context context) {
+        Intent intent = new Intent(context, PullConfigurableViewsIntentService.class);
+        context.startService(intent);
     }
 
     public static synchronized SampleApplication getInstance() {

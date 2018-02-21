@@ -32,6 +32,7 @@ android:
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-android-22
+    - sys-img-armeabi-v7a-android-24
 
 addons:
   apt_packages:
@@ -51,7 +52,7 @@ script:
   - ls -la
   - ./gradlew opensrp-configurable-views:clean
   #Run All Instrumentation Tests
-  - ./gradlew opensrp-tbr:connectedAndroidTest
+  - ./gradlew opensrp-configurable-views:connectedAndroidTest
   #Run All Unit tests Unit
   - travis_wait ./gradlew :opensrp-configurable-views:jacocoTestReport coveralls --stacktrace
 

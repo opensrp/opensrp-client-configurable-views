@@ -15,6 +15,8 @@ public class ConfigurableViewsLibrary {
 
     private static ConfigurableViewsLibrary instance;
     private static Context context;
+    private String password;
+
     private Repository repository;
     private ConfigurableViewsRepository configurableViewsRepository;
     private static JsonSpecHelper jsonSpecHelper;
@@ -54,5 +56,17 @@ public class ConfigurableViewsLibrary {
 
     public static JsonSpecHelper getJsonSpecHelper() {
         return getInstance().jsonSpecHelper;
+    }
+
+    public static Context getContext() {
+        return context;
+    }
+
+    public String getPassword() {
+        if (password == null) {
+            String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
+            password = getContext().userService().getGroupId(username);
+        }
+        return password;
     }
 }
