@@ -1,5 +1,18 @@
+
+allprojects {
+    repositories {
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        mavenLocal()
+        maven {
+            url 'https://maven.google.com'
+        }
+    }
+}
+
 apply plugin: 'maven'
 apply plugin: 'signing'
+
+
 
 def sonatypeRepositoryURL
 def mavenLocalFlag = hasProperty('mavenLocal') ? mavenLocal.toBoolean() : true;

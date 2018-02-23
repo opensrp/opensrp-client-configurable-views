@@ -3,32 +3,28 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:1.2.3"
+        classpath 'com.android.tools.build:gradle:' + androidToolsBuildGradle
     }
 }
 
-allprojects {
-    repositories {
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-        mavenLocal()
-        maven {
-            url 'https://maven.google.com'
-        }
-    }
+repositories {
+    jcenter()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://maven.google.com' }
+    mavenLocal()
 }
 
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "26.0.2"
+    compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion androidBuildToolsVersion
     defaultConfig {
         applicationId "org.smartregister.configurableviews.sample"
-        minSdkVersion 18
-        targetSdkVersion 22
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
     buildTypes {
@@ -37,33 +33,30 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    lintOptions {
-        abortOnError false
-    }
-
-    dexOptions {
-        incremental true
-        javaMaxHeapSize "4g"
-    }
-
     packagingOptions {
-        exclude 'LICENSE.txt'
-        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES.txt'
         exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/license.txt'
         exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/notice.txt'
-        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'LICENSE.txt'
     }
 }
 
 dependencies {
+
+    compile('org.smartregister:opensrp-client-core:1.0.0-SNAPSHOT@aar') {
+        transitive = true
+        exclude group: 'com.github.bmelnychuk', module: 'atv'
+    }
+
     compile project(':opensrp-configurable-views')
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'

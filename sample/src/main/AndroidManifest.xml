@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.smartregister.configurableviews.sample">
+    package="org.smartregister.opensrpclientconfigurableviews.sample">
 
     <application
-        android:name=".application.SampleApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ConfigurableViewsSampleActivity">
+        <activity android:name="org.smartregister.configurableviews.sample.ConfigurableViewsSampleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

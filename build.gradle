@@ -1,29 +1,28 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.2.3'
         classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.11.0"
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+    }
+}
+
+configure(allprojects) { project ->
+    buildscript {
+
+        version = VERSION_NAME
+        group = GROUP
+
+        repositories {
+            jcenter()
+            mavenCentral()
+            maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+            mavenLocal()
+        }
     }
 }
 
 apply plugin: 'io.codearte.nexus-staging'
-
-allprojects {
-
-    version = VERSION_NAME
-    group = GROUP
-
-    repositories {
-        jcenter()
-    }
-}
-
 
 project.ext.preDexLibs = !project.hasProperty('disablePreDex')
 
@@ -31,9 +30,9 @@ subprojects {
 
     group = 'org.smartregister'
 
-    ext.androidToolsBuildGradle = '21.1.2'
+    ext.androidToolsBuildGradle = '1.3.1'
     ext.androidBuildToolsVersion = '26.0.2'
-    ext.androidMinSdkVersion = 16
+    ext.androidMinSdkVersion = 18
     ext.androidCompileSdkVersion = 22
     ext.androidTargetSdkVersion = 22
 

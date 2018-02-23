@@ -1,21 +1,15 @@
 package org.smartregister.configurableviews.sample;
 
-import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import org.smartregister.configurableviews.ConfigurableViewsLibrary;
-import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
+import org.smartregister.opensrpclientconfigurableviews.sample.R;
 
-
-public class ConfigurableViewsSampleActivity extends Activity {
+public class ConfigurableViewsSampleActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configurable_views_sample);
-
-        ConfigurableViewsRepository repository = ConfigurableViewsLibrary.getInstance().getConfigurableViewsRepository();
-
-        repository.toString();
     }
 }
