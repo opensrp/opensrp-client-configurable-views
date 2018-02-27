@@ -1,4 +1,4 @@
-package org.smartregister.configurableviews.jsonspec;
+package org.smartregister.configurableviews.helper;
 
 import android.content.Context;
 import android.util.Log;
@@ -11,8 +11,8 @@ import com.avocarrot.json2view.DynamicView;
 import org.json.JSONObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.R;
-import org.smartregister.configurableviews.jsonspec.model.View;
-import org.smartregister.configurableviews.jsonspec.model.ViewConfiguration;
+import org.smartregister.configurableviews.model.View;
+import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 
 import java.util.Arrays;
@@ -156,9 +156,6 @@ public class ConfigurableViewsHelper {
     public android.view.View inflateDynamicView(ViewConfiguration viewConfiguration, ViewGroup viewParent, android.view.View fallbackLayout, boolean isVisible) {
 
         android.view.View json2View = getDynamicView(viewConfiguration, viewParent);
-        if (fallbackLayout != null) {
-            viewParent.removeView(fallbackLayout);
-        }
         if (isVisible) {
             json2View = json2View != null ? json2View : fallbackLayout;
             viewParent.addView(json2View);

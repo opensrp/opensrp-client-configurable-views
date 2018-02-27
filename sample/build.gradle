@@ -26,6 +26,7 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+        resValue "string", 'opensrp_url', '"https://tbreach-stage.smartregister.org/opensrp/"'
     }
     buildTypes {
         release {
@@ -46,6 +47,15 @@ android {
         exclude 'META-INF/LGPL2.1'
         exclude 'LICENSE.txt'
     }
+
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -59,5 +69,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    compile 'com.android.support:design:22.2.1'
     testCompile 'junit:junit:4.12'
 }

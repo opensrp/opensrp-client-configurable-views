@@ -7,7 +7,7 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.configurableviews.jsonspec.ECSyncHelper;
+import org.smartregister.configurableviews.helper.ECSyncHelper;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.configurableviews.util.Constants;
 import org.smartregister.configurableviews.util.Utils;

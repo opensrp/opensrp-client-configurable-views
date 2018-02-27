@@ -2,7 +2,8 @@ package org.smartregister.configurableviews;
 
 
 import org.smartregister.Context;
-import org.smartregister.configurableviews.jsonspec.JsonSpecHelper;
+import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
+import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.repository.Repository;
 
@@ -20,6 +21,7 @@ public class ConfigurableViewsLibrary {
     private Repository repository;
     private ConfigurableViewsRepository configurableViewsRepository;
     private static JsonSpecHelper jsonSpecHelper;
+    private ConfigurableViewsHelper configurableViewsHelper;
 
     public static void init(Context context_, Repository repository) {
         if (instance == null) {
@@ -68,5 +70,13 @@ public class ConfigurableViewsLibrary {
             password = getContext().userService().getGroupId(username);
         }
         return password;
+    }
+
+    public ConfigurableViewsHelper getConfigurableViewsHelper() {
+        if (configurableViewsHelper == null) {
+            configurableViewsHelper = new ConfigurableViewsHelper(getConfigurableViewsRepository(),
+                    getJsonSpecHelper(), context.applicationContext());
+        }
+        return configurableViewsHelper;
     }
 }

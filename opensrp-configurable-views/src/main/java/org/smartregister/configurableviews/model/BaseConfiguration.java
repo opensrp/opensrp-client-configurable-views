@@ -1,4 +1,4 @@
-package org.smartregister.configurableviews.jsonspec.model;
+package org.smartregister.configurableviews.model;
 
 public abstract class BaseConfiguration {
 

@@ -1,10 +1,10 @@
-package org.smartregister.configurableviews.jsonspec;
+package org.smartregister.configurableviews.helper;
 
 import android.content.Context;
 
+import org.smartregister.configurableviews.util.Constants;
 import org.smartregister.util.Utils;
 
-import static org.smartregister.configurableviews.util.Constants.CONFIGURATION.LOGIN;
 import static org.smartregister.configurableviews.util.Constants.LAST_VIEWS_SYNC_TIMESTAMP;
 import static org.smartregister.configurableviews.util.Constants.VIEW_CONFIGURATION_PREFIX;
 import static org.smartregister.util.Utils.getPreference;
@@ -40,7 +40,7 @@ public class ECSyncHelper {
 
 
     public void updateLoginConfigurableViewPreference(String loginJson) {
-        Utils.writePreference(context, VIEW_CONFIGURATION_PREFIX + LOGIN, loginJson);
+        Utils.writePreference(context, VIEW_CONFIGURATION_PREFIX + Constants.CONFIGURATION.LOGIN, loginJson);
     }
 
 

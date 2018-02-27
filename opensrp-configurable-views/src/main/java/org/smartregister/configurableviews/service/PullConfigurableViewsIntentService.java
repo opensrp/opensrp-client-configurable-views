@@ -5,7 +5,7 @@ import android.content.Intent;
 
 import org.smartregister.Context;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
-import org.smartregister.configurableviews.jsonspec.ECSyncHelper;
+import org.smartregister.configurableviews.helper.ECSyncHelper;
 import org.smartregister.configurableviews.util.Utils;
 
 import java.util.Calendar;
@@ -23,7 +23,7 @@ public class PullConfigurableViewsIntentService extends IntentService {
 
     private static final String TAG = PullConfigurableViewsIntentService.class.getCanonicalName();
 
-    private PullConfigurableViewsServiceHelper pullConfigurableViewsServiceHelper;
+    protected PullConfigurableViewsServiceHelper pullConfigurableViewsServiceHelper;
 
     public PullConfigurableViewsIntentService() {
         super(TAG);

@@ -1,4 +1,4 @@
-package org.smartregister.configurableviews.jsonspec;
+package org.smartregister.configurableviews.helper;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,11 +8,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
-import org.smartregister.configurableviews.jsonspec.model.BaseConfiguration;
-import org.smartregister.configurableviews.jsonspec.model.LoginConfiguration;
-import org.smartregister.configurableviews.jsonspec.model.MainConfig;
-import org.smartregister.configurableviews.jsonspec.model.RegisterConfiguration;
-import org.smartregister.configurableviews.jsonspec.model.ViewConfiguration;
+import org.smartregister.configurableviews.model.BaseConfiguration;
+import org.smartregister.configurableviews.model.LoginConfiguration;
+import org.smartregister.configurableviews.model.MainConfig;
+import org.smartregister.configurableviews.model.RegisterConfiguration;
+import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.configurableviews.util.Constants;
 import org.smartregister.configurableviews.util.RuntimeTypeAdapterFactory;
 
