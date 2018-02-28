@@ -14,6 +14,7 @@ public class Constants {
 
     public static class INTENT_KEY {
         public static final String LAST_SYNC_TIME_STRING = "last_manual_sync_time_string";
+        public static final String SYNC_TOTAL_RECORDS = "sync_total_records";
     }
 
 

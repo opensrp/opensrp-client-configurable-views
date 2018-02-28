@@ -2,15 +2,16 @@ package org.smartregister.configurableviews.service;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 
 import org.smartregister.Context;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.ECSyncHelper;
+import org.smartregister.configurableviews.util.Constants;
 import org.smartregister.configurableviews.util.Utils;
 
 import java.util.Calendar;
 
-import static org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING;
 import static org.smartregister.util.Log.logError;
 
 /**
@@ -25,6 +26,8 @@ public class PullConfigurableViewsIntentService extends IntentService {
 
     protected PullConfigurableViewsServiceHelper pullConfigurableViewsServiceHelper;
 
+    public static final String EVENT_SYNC_COMPLETE = "event_sync_complete";
+
     public PullConfigurableViewsIntentService() {
         super(TAG);
     }
@@ -33,16 +36,23 @@ public class PullConfigurableViewsIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
             try {
+
+
+                Intent broadCastIntent = new Intent(PullConfigurableViewsIntentService.EVENT_SYNC_COMPLETE); //broadcast useful meta data
+
                 int count = pullConfigurableViewsServiceHelper.processIntent();
                 if (count > 0) {
-                    //Broadcast Language event
+                    intent.putExtra(Constants.INTENT_KEY.SYNC_TOTAL_RECORDS, count);
                 }
 
                 //Broadcast view configuration Sync event
 
                 //update last sync time
                 String lastSyncTime = Utils.formatDate(Calendar.getInstance().getTime(), "MMM dd HH:mm");
-                Utils.writePrefString(this, LAST_SYNC_TIME_STRING, lastSyncTime);
+                Utils.writePrefString(this, Constants.INTENT_KEY.LAST_SYNC_TIME_STRING, lastSyncTime);
+
+                broadCastIntent.putExtra(Constants.INTENT_KEY.LAST_SYNC_TIME_STRING, lastSyncTime);
+                LocalBroadcastManager.getInstance(this).sendBroadcast(broadCastIntent);
 
             } catch (Exception e) {
                 logError(TAG + " Error fetching configurable Views");
@@ -58,6 +68,11 @@ public class PullConfigurableViewsIntentService extends IntentService {
                 ConfigurableViewsLibrary.getInstance().getConfigurableViewsRepository(), context.getHttpAgent(),
                 context.configuration().dristhiBaseURL(), ECSyncHelper.getInstance(getApplicationContext()),
                 ConfigurableViewsLibrary.getInstance().getPassword() != null);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
 }

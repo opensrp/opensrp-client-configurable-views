@@ -2,26 +2,28 @@ package org.smartregister.configurableviews.sample.service;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.configurableviews.sample.Utils;
+import org.smartregister.configurableviews.service.PullConfigurableViewsIntentService;
+import org.smartregister.configurableviews.util.Constants;
 
 import java.util.Calendar;
 
-import static org.smartregister.configurableviews.util.Constants.INTENT_KEY.LAST_SYNC_TIME_STRING;
 import static org.smartregister.util.Log.logError;
 
 /**
  * Created by ndegwamartin on 27/02/2018.
  * <p>
- * This Class is for Demo Purpose only. The method you would normally use is SampleService class which is the super class of this class
- * The super class SampleService is wired to fetch data from the '/rest/viewconfiguration/sync' endpoint. You could override this and also
+ * This Class is for Demo Purpose only. The Class you would normally use is PullConfigurableViewsIntentService contained in the opensrp-configurable-views library
+ * The PullConfigurableViewsIntentService class is wired to fetch data from the '/rest/viewconfiguration/sync' endpoint. You could override this and also
  * add custom behaviour as we have done with this Sample/Demo class.
  * <p>
- * By default, the SampleService broadcasts a SyncComplete Event using LocalBroadcastManager once it fetches server data
+ * By default, the PullConfigurableViewsIntentService broadcasts a SyncComplete Event using LocalBroadcastManager once it fetches server data
  */
 
 public class SampleService extends IntentService {
@@ -38,6 +40,8 @@ public class SampleService extends IntentService {
         if (intent != null) {
             try {
                 JSONArray viewConfigData = populateExampleViewConfigData();
+
+
                 if (viewConfigData.length() > 0) {
 
                     //Save the view configuration data locally
@@ -48,9 +52,14 @@ public class SampleService extends IntentService {
 
                 //Here you can Broadcast view configuration Sync event has finished
 
-                //update last sync time
+                Intent broadCastIntent = new Intent(PullConfigurableViewsIntentService.EVENT_SYNC_COMPLETE); //broadcast useful meta data
+                intent.putExtra(Constants.INTENT_KEY.SYNC_TOTAL_RECORDS, viewConfigData.length()); //broadcast total records
+
+                //broadcast last sync time
                 String lastSyncTime = org.smartregister.configurableviews.util.Utils.formatDate(Calendar.getInstance().getTime(), "MMM dd HH:mm");
-                org.smartregister.configurableviews.util.Utils.writePrefString(this, LAST_SYNC_TIME_STRING, lastSyncTime);
+
+                broadCastIntent.putExtra(Constants.INTENT_KEY.LAST_SYNC_TIME_STRING, lastSyncTime);
+                LocalBroadcastManager.getInstance(this).sendBroadcast(broadCastIntent);
 
             } catch (Exception e) {
                 logError(TAG + " Error fetching configurable Views");
