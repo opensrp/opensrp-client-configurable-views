@@ -12,6 +12,9 @@ repositories {
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     maven { url 'https://maven.google.com' }
     mavenLocal()
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 apply plugin: 'com.android.application'
@@ -65,11 +68,19 @@ dependencies {
         exclude group: 'com.github.bmelnychuk', module: 'atv'
     }
 
-    compile project(':opensrp-configurable-views')
+    compile('org.smartregister:opensrp-configurable-views:0.0.1-SNAPSHOT@aar') {
+        transitive = true
+    }
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
     compile 'com.android.support:design:22.2.1'
     testCompile 'junit:junit:4.12'
+}
+
+task display(){
+    println("${rootDir}");
+    println("${projectDir}");
 }

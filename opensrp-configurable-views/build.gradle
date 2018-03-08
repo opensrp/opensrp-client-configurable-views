@@ -21,6 +21,12 @@ allprojects {
     }
 }
 
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'jacoco'
@@ -73,13 +79,14 @@ android {
 
 }
 
-
 dependencies {
     compile('org.smartregister:opensrp-client-core:1.1.6-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
     }
+
     compile project(':json2view')
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     compile 'com.android.support:appcompat-v7:22.+'
@@ -100,6 +107,31 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }
+
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('json2view/gradle.properties').newDataInputStream())
+
+task removeJson2ViewJar(type: Delete) {
+    delete fileTree('libs') {
+        include "${properties.getProperty('LIBRARY_NAME')}-*"
+    }
+}
+
+
+task checkJson2ViewLatest {
+
+    doLast {
+
+        if (!file("libs/${properties.getProperty('LIBRARY_NAME')}-${properties.getProperty('VERSION_NAME')}.jar").exists()) {
+            throw new GradleException("Error occurred : latest Json2View jar ${properties.getProperty('LIBRARY_NAME')}-${properties.getProperty('VERSION_NAME')}.jar is not present in the libs folder. \n" +
+                    "Please rerun uploadArchive task or make sure to always run the :json2View:createJson2ViewJar task first before :uploadArchives")
+        }
+    }
+
+}
+
+preBuild.dependsOn checkJson2ViewLatest
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
 
