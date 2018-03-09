@@ -7,7 +7,8 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.configurableviews.helper.ECSyncHelper;
+import org.smartregister.configurableviews.helper.PreferenceHelper;
+import org.smartregister.configurableviews.helper.PrefsHelper;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.configurableviews.util.Constants;
 import org.smartregister.configurableviews.util.Utils;
@@ -30,10 +31,10 @@ public class PullConfigurableViewsServiceHelper {
     private ConfigurableViewsRepository configurableViewsRepository;
     private HTTPAgent httpAgent;
     private String baseUrl;
-    private ECSyncHelper syncHelper;
+    private PrefsHelper syncHelper;
 
     public PullConfigurableViewsServiceHelper(Context applicationContext, ConfigurableViewsRepository configurableViewsRepository,
-                                              HTTPAgent httpAgent, String baseUrl, ECSyncHelper syncHelper, boolean databaseCreated) {
+                                              HTTPAgent httpAgent, String baseUrl, PrefsHelper syncHelper, boolean databaseCreated) {
 
         this.applicationContext = applicationContext;
         this.configurableViewsRepository = configurableViewsRepository;
@@ -44,7 +45,7 @@ public class PullConfigurableViewsServiceHelper {
     }
 
 
-    protected int processIntent() throws Exception {
+    public int processIntent() throws Exception {
         JSONArray views = fetchConfigurableViews();
         if (views != null && views.length() > 0) {
             //There is any other previous login
@@ -83,7 +84,7 @@ public class PullConfigurableViewsServiceHelper {
             baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf(endString));
         }
 
-        String url = baseUrl + VIEWS_URL + "?serverVersion=" + ECSyncHelper.getInstance(applicationContext).getLastViewsSyncTimeStamp();
+        String url = baseUrl + VIEWS_URL + "?serverVersion=" + PreferenceHelper.getInstance(applicationContext).getLastViewsSyncTimeStamp();
         Log.i(TAG, "URL: " + url);
         if (httpAgent == null) {
             logError(url + " http agent is null");

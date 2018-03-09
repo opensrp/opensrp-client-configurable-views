@@ -10,23 +10,23 @@ import static org.smartregister.configurableviews.util.Constants.VIEW_CONFIGURAT
 import static org.smartregister.util.Utils.getPreference;
 
 /**
- * Created by samuelgithengi on 12/19/17.
+ * Created by ndegwamartin on 21/02/2018.
  */
 
-public class ECSyncHelper {
+public class PreferenceHelper implements PrefsHelper {
 
     private final Context context;
 
-    private static ECSyncHelper instance;
+    private static PreferenceHelper instance;
 
-    public static ECSyncHelper getInstance(Context context) {
+    public static PreferenceHelper getInstance(Context context) {
         if (instance == null) {
-            instance = new ECSyncHelper(context);
+            instance = new PreferenceHelper(context);
         }
         return instance;
     }
 
-    private ECSyncHelper(Context context) {
+    private PreferenceHelper(Context context) {
         this.context = context;
     }
 

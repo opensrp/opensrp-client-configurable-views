@@ -6,7 +6,7 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import org.smartregister.Context;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
-import org.smartregister.configurableviews.helper.ECSyncHelper;
+import org.smartregister.configurableviews.helper.PreferenceHelper;
 import org.smartregister.configurableviews.util.Constants;
 import org.smartregister.configurableviews.util.Utils;
 
@@ -66,7 +66,7 @@ public class PullConfigurableViewsIntentService extends IntentService {
         Context context = ConfigurableViewsLibrary.getInstance().getContext();
         pullConfigurableViewsServiceHelper = new PullConfigurableViewsServiceHelper(getApplicationContext(),
                 ConfigurableViewsLibrary.getInstance().getConfigurableViewsRepository(), context.getHttpAgent(),
-                context.configuration().dristhiBaseURL(), ECSyncHelper.getInstance(getApplicationContext()),
+                context.configuration().dristhiBaseURL(), PreferenceHelper.getInstance(getApplicationContext()),
                 ConfigurableViewsLibrary.getInstance().getPassword() != null);
     }
 
