@@ -86,7 +86,7 @@ public class ConfigurableViewsRepository extends BaseRepository {
         return lastSyncTimeStamp;
     }
 
-    protected boolean configurableViewExists(String identifier) {
+    public boolean configurableViewExists(String identifier) {
         boolean exists = false;
         Cursor c = getReadableDatabase().rawQuery("Select " + IDENTIFIER + " from " + TABLE_NAME + " Where " +
                         IDENTIFIER + " = ? ",
