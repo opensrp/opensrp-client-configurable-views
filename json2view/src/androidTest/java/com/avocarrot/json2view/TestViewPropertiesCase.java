@@ -18,8 +18,8 @@ import static com.avocarrot.json2view.DynamicProperty.TYPE;
  */
 public class TestViewPropertiesCase extends InstrumentationTestCase {
 
-    DynamicViewJsonBuilder dummyJsonObj;
-    Context context;
+    protected DynamicViewJsonBuilder dummyJsonObj;
+    protected Context context;
 
     @Override
     protected void setUp() throws Exception {

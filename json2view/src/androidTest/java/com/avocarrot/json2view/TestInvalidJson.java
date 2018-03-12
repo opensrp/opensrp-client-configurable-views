@@ -12,9 +12,9 @@ import org.json.JSONObject;
  */
 public class TestInvalidJson extends InstrumentationTestCase {
 
-    JSONObject jsonObject;
-    View view2test;
-    Context context;
+    protected JSONObject jsonObject;
+    protected View view2test;
+    protected Context context;
 
     @Override
     protected void setUp() throws Exception {

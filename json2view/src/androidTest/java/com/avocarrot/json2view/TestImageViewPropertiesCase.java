@@ -14,8 +14,8 @@ import static com.avocarrot.json2view.DynamicProperty.TYPE;
  */
 public class TestImageViewPropertiesCase extends InstrumentationTestCase {
 
-    DynamicViewJsonBuilder dummyJsonObj;
-    Context context;
+    protected DynamicViewJsonBuilder dummyJsonObj;
+    protected Context context;
 
     @Override
     protected void setUp() throws Exception {
@@ -23,8 +23,8 @@ public class TestImageViewPropertiesCase extends InstrumentationTestCase {
 
         context = getInstrumentation().getContext();
         dummyJsonObj =
-            new DynamicViewJsonBuilder()
-                .setWidget("ImageView");
+                new DynamicViewJsonBuilder()
+                        .setWidget("ImageView");
 
         assertNotNull("Cannot create dynamic jsonObject", dummyJsonObj);
 
@@ -33,37 +33,37 @@ public class TestImageViewPropertiesCase extends InstrumentationTestCase {
     /* test set padding as integer */
     public void testDummyView() {
         View view = DynamicView.createView(
-            context,
-            dummyJsonObj
-                .build());
+                context,
+                dummyJsonObj
+                        .build());
         assertNotNull("Cannot create dynamic View", view);
     }
 
     /* test set src of imageView */
     public void testSrc() {
         View view = DynamicView.createView(
-            context,
-            dummyJsonObj
-                .addProperty(new DynamicPropertyJsonBuilder().setName(NAME.SRC).setType(TYPE.REF).setValue("sample").build())
-                .build());
-        assertTrue( ( ((BitmapDrawable)((ImageView)view).getDrawable()).getBitmap() ).sameAs(Utils.readDrawable(com.avocarrot.json2view.test.R.drawable.sample, context)));
+                context,
+                dummyJsonObj
+                        .addProperty(new DynamicPropertyJsonBuilder().setName(NAME.SRC).setType(TYPE.REF).setValue("sample").build())
+                        .build());
+        assertTrue((((BitmapDrawable) ((ImageView) view).getDrawable()).getBitmap()).sameAs(Utils.readDrawable(com.avocarrot.json2view.test.R.drawable.sample, context)));
         /* load other drawable and check */
         view = DynamicView.createView(
-            context,
-            dummyJsonObj
-                .addProperty(new DynamicPropertyJsonBuilder().setName(NAME.SRC).setType(TYPE.REF).setValue("sample").build())
-                .build());
-        assertFalse( ( ((BitmapDrawable)((ImageView)view).getDrawable()).getBitmap() ).sameAs(Utils.readAssetAsImage("sample2.png", context)));
+                context,
+                dummyJsonObj
+                        .addProperty(new DynamicPropertyJsonBuilder().setName(NAME.SRC).setType(TYPE.REF).setValue("sample").build())
+                        .build());
+        assertFalse((((BitmapDrawable) ((ImageView) view).getDrawable()).getBitmap()).sameAs(Utils.readAssetAsImage("sample2.png", context)));
     }
 
     /* test set src of imageView */
     public void testSrcBase64() {
         View view = DynamicView.createView(
-            context,
-            dummyJsonObj
-                .addProperty(new DynamicPropertyJsonBuilder().setName(NAME.SRC).setType(TYPE.BASE64).setValue(Utils.readBase64("sample2.png", context)).build())
-                .build());
-        assertTrue( ( ((BitmapDrawable)((ImageView)view).getDrawable()).getBitmap() ).sameAs(Utils.readAssetAsImage("sample2.png", context)));
+                context,
+                dummyJsonObj
+                        .addProperty(new DynamicPropertyJsonBuilder().setName(NAME.SRC).setType(TYPE.BASE64).setValue(Utils.readBase64("sample2.png", context)).build())
+                        .build());
+        assertTrue((((BitmapDrawable) ((ImageView) view).getDrawable()).getBitmap()).sameAs(Utils.readAssetAsImage("sample2.png", context)));
     }
 
 }

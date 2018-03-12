@@ -21,8 +21,8 @@ import java.util.List;
  */
 public class DynamicView {
 
-    static int mCurrentId = 13;
-    static int INTERNAL_TAG_ID = 0x7f020000;
+    protected static int mCurrentId = 13;
+    protected static int INTERNAL_TAG_ID = 0x7f020000;
 
     /**
      * @param jsonObject  : json object

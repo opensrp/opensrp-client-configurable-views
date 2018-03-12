@@ -13,7 +13,6 @@ import org.smartregister.repository.Repository;
 
 public class ConfigurableViewsLibrary {
 
-
     private static ConfigurableViewsLibrary instance;
     private static Context context;
     private String password;
@@ -25,8 +24,8 @@ public class ConfigurableViewsLibrary {
 
     public static void init(Context context_, Repository repository) {
         if (instance == null) {
-            context = context_;
-            instance = new ConfigurableViewsLibrary(context, repository);
+            ConfigurableViewsLibrary.context = context_;
+            ConfigurableViewsLibrary.instance = new ConfigurableViewsLibrary(context, repository);
         }
     }
 
