@@ -17,14 +17,14 @@ import static com.avocarrot.json2view.DynamicProperty.TYPE;
  */
 public class TestLayoutPropertiesCase extends ActivityInstrumentationTestCase2<TestActivity> {
 
-    TestActivity activity;
+    protected TestActivity activity;
 
     public TestLayoutPropertiesCase() {
         super(TestActivity.class);
     }
 
-    Context context;
-    DynamicViewJsonBuilder jsonObj0, jsonObj1, container;
+    protected Context context;
+    protected DynamicViewJsonBuilder jsonObj0, jsonObj1, container;
     private static final String CONTAINER_ID = "ContainerId";
     private static final String ID0 = "ViewId0";
     private static final String ID1 = "ViewId1_withExtraText!";

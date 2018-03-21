@@ -13,13 +13,13 @@ import org.smartregister.repository.Repository;
 
 public class ConfigurableViewsLibrary {
 
-    private static ConfigurableViewsLibrary instance;
-    private static Context context;
+    public static ConfigurableViewsLibrary instance;
+    public static Context context;
     private String password;
 
     private Repository repository;
     private ConfigurableViewsRepository configurableViewsRepository;
-    private static JsonSpecHelper jsonSpecHelper;
+    public static JsonSpecHelper jsonSpecHelper;
     private ConfigurableViewsHelper configurableViewsHelper;
 
     public static void init(Context context_, Repository repository) {
