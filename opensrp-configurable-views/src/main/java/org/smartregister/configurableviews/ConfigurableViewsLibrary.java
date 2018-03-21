@@ -25,7 +25,8 @@ public class ConfigurableViewsLibrary {
     public static void init(Context context_, Repository repository) {
         if (instance == null) {
             ConfigurableViewsLibrary.context = context_;
-            ConfigurableViewsLibrary.instance = new ConfigurableViewsLibrary(context, repository);
+            ConfigurableViewsLibrary.instance = new ConfigurableViewsLibrary(repository);
+            ConfigurableViewsLibrary.jsonSpecHelper = new JsonSpecHelper(context.applicationContext());
         }
     }
 
@@ -36,13 +37,9 @@ public class ConfigurableViewsLibrary {
         return instance;
     }
 
-    private ConfigurableViewsLibrary(Context context, Repository repository) {
-        ConfigurableViewsLibrary.context = context;
+    private ConfigurableViewsLibrary(Repository repository) {
         this.repository = repository;
-        //Initialize JsonSpec Helper
-        ConfigurableViewsLibrary.jsonSpecHelper = new JsonSpecHelper(context.applicationContext());
     }
-
 
     public ConfigurableViewsRepository getConfigurableViewsRepository() {
         if (configurableViewsRepository == null) {
