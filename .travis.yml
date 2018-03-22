@@ -49,7 +49,7 @@ script:
   - ls -la
   - ./gradlew opensrp-configurable-views:clean
   #Run All Instrumentation Tests
-  - ./gradlew opensrp-tbr:connectedAndroidTest
+  - ./gradlew opensrp-configurable-views:connectedAndroidTest
   #Run All Unit tests Unit
   - travis_wait ./gradlew :opensrp-configurable-views:jacocoTestReport coveralls --stacktrace
 

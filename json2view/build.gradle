@@ -1,0 +1,63 @@
+apply plugin: 'com.android.library'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:" + androidToolsBuildGradle
+    }
+}
+android {
+    compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion androidBuildToolsVersion
+
+    defaultConfig {
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    androidTestCompile 'junit:junit:4.12'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+}
+
+
+task removeJson2ViewJar(type: Delete) {
+    delete fileTree("${rootDir}/opensrp-configurable-views/libs/") {
+        include "${LIBRARY_NAME}-*"
+    }
+}
+
+task createJson2ViewJar(type: Copy) {
+
+    doLast {
+        println "Bundling json2View library as ${LIBRARY_NAME}-${VERSION_NAME}.jar ....."
+        println "Bundling from ${rootDir}/json2view/build/intermediates/bundles/release/"
+    }
+
+    from("${buildDir}/intermediates/bundles/release/")
+    into("${rootDir}/opensrp-configurable-views/libs/")
+    include('classes.jar')
+    rename('classes.jar', "${LIBRARY_NAME}-${VERSION_NAME}.jar")
+
+    outputs.upToDateWhen { false }
+
+
+}
+
+createJson2ViewJar.dependsOn(removeJson2ViewJar)
+
+build.finalizedBy(createJson2ViewJar)

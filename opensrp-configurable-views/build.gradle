@@ -1,9 +1,11 @@
+description = 'OpenSRP Configurable Views client library'
+
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:1.3.1"
+        classpath "com.android.tools.build:gradle:" + androidToolsBuildGradle
         classpath 'org.robolectric:robolectric-gradle-plugin:1.1.0'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
     }
@@ -13,25 +15,28 @@ allprojects {
     repositories {
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         mavenLocal()
+        maven {
+            url 'https://maven.google.com'
+        }
     }
 }
+
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'jacoco'
-jacoco {
-    toolVersion = "0.8.0"
-}
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion androidBuildToolsVersion
+
+    defaultPublishConfig !isReleaseBuild() ? "debug" : "release"
 
     defaultConfig {
-        minSdkVersion 18
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
-
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+        versionCode Integer.parseInt(project.VERSION_CODE)
+        versionName project.VERSION_NAME
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -46,24 +51,44 @@ android {
         }
     }
 
-    testOptions {
-        unitTests.all {
-            jacoco {
-                includeNoLocationClasses = true
-            }
-        }
+    lintOptions {
+        abortOnError false
     }
+
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
+
+
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:26.+'
+    compile('org.smartregister:opensrp-client-core:1.1.6-SNAPSHOT@aar') {
+        transitive = true
+        exclude group: 'com.github.bmelnychuk', module: 'atv'
+    }
+
+    compile project(':json2view')
+
+
+    compile 'com.android.support:appcompat-v7:22.+'
+
+    compile 'com.google.code.gson:gson:2.8.2'
     testCompile 'junit:junit:4.12'
     testCompile 'org.robolectric:robolectric:3.5.1'
     testCompile 'org.robolectric:shadows-multidex:3.5.1'
+
     // PowerMock
     def powerMockVersion = '1.7.3'
     testCompile "org.powermock:powermock-module-junit4:$powerMockVersion"
@@ -71,7 +96,35 @@ dependencies {
     testCompile "org.powermock:powermock-api-mockito2:$powerMockVersion"
     testCompile "org.powermock:powermock-classloading-xstream:$powerMockVersion"
 
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 }
+
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('json2view/gradle.properties').newDataInputStream())
+
+task removeJson2ViewJar(type: Delete) {
+    delete fileTree('libs') {
+        include "${properties.getProperty('LIBRARY_NAME')}-*"
+    }
+}
+
+
+task checkJson2ViewLatest {
+
+    doLast {
+
+        if (!file("libs/${properties.getProperty('LIBRARY_NAME')}-${properties.getProperty('VERSION_NAME')}.jar").exists()) {
+            throw new GradleException("Error occurred : latest Json2View jar ${properties.getProperty('LIBRARY_NAME')}-${properties.getProperty('VERSION_NAME')}.jar is not present in the libs folder. \n" +
+                    "Please rerun uploadArchive task or make sure to always run the :json2View:createJson2ViewJar task first before :uploadArchives")
+        }
+    }
+
+}
+
+preBuild.dependsOn checkJson2ViewLatest
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
 

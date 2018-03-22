@@ -1,1 +1,1 @@
-include ':sample', ':opensrp-configurable-views'
+include ':sample', ':opensrp-configurable-views', ':json2view'
