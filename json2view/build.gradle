@@ -2,10 +2,12 @@ apply plugin: 'com.android.library'
 
 buildscript {
     repositories {
+        google()
         jcenter()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:" + androidToolsBuildGradle
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
     }
 }
 android {
@@ -30,8 +32,8 @@ android {
 }
 
 dependencies {
-    androidTestCompile 'junit:junit:4.12'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation 'junit:junit:4.12'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 }
 
 
@@ -45,10 +47,10 @@ task createJson2ViewJar(type: Copy) {
 
     doLast {
         println "Bundling json2View library as ${LIBRARY_NAME}-${VERSION_NAME}.jar ....."
-        println "Bundling from ${rootDir}/json2view/build/intermediates/bundles/release/"
+        println "Bundling from ${rootDir}/json2view/build/intermediates/packaged-classes/release/"
     }
 
-    from("${buildDir}/intermediates/bundles/release/")
+    from("${buildDir}/intermediates/packaged-classes/release/")
     into("${rootDir}/opensrp-configurable-views/libs/")
     include('classes.jar')
     rename('classes.jar', "${LIBRARY_NAME}-${VERSION_NAME}.jar")

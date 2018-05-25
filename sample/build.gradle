@@ -1,9 +1,11 @@
 buildscript {
     repositories {
+        google()
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:' + androidToolsBuildGradle
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
     }
 }
 
@@ -54,7 +56,6 @@ android {
     }
 
     dexOptions {
-        incremental true
         javaMaxHeapSize "4g"
     }
 
@@ -65,21 +66,20 @@ android {
 
     dependencies {
 
-        compile('org.smartregister:opensrp-client-core:1.2.0@aar') {
+        implementation('org.smartregister:opensrp-client-core:1.3.2-SNAPSHOT@aar') {
             transitive = true
             exclude group: 'com.github.bmelnychuk', module: 'atv'
         }
 
-        compile('org.smartregister:opensrp-client-configurable-views:1.0.3-SNAPSHOT@aar') {
-            transitive = true
-        }
+        implementation project(':json2view')
 
-        compile fileTree(dir: 'libs', include: ['*.jar'])
-        compile 'com.android.support:appcompat-v7:22.+'
-        compile 'com.android.support.constraint:constraint-layout:1.0.2'
+        implementation project(':opensrp-configurable-views')
 
-        compile 'com.android.support:design:22.2.1'
-        testCompile 'junit:junit:4.12'
+        implementation 'com.android.support:appcompat-v7:27.1.1'
+        implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+
+        implementation 'com.android.support:design:27.1.1'
+        testImplementation 'junit:junit:4.12'
     }
 
 }

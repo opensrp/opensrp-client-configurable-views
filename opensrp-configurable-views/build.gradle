@@ -2,11 +2,11 @@ description = 'OpenSRP Configurable Views client library'
 
 buildscript {
     repositories {
+        google()
         jcenter()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:" + androidToolsBuildGradle
-        classpath 'org.robolectric:robolectric-gradle-plugin:1.1.0'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
     }
 }
@@ -24,6 +24,10 @@ allprojects {
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = "0.8.0"
+}
 
 android {
     compileSdkVersion androidCompileSdkVersion
@@ -56,7 +60,6 @@ android {
     }
 
     dexOptions {
-        incremental true
         javaMaxHeapSize "4g"
     }
 
@@ -70,33 +73,40 @@ android {
         exclude 'META-INF/ASL2.0'
     }
 
+    testOptions {
+       unitTests {
+            includeAndroidResources = true
+         }
+    }
+}
 
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
 }
 
 dependencies {
-    compile('org.smartregister:opensrp-client-core:1.1.6-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.3.2-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
     }
 
-    compile project(':json2view')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation 'com.android.support:appcompat-v7:27.1.1'
 
-    compile 'com.android.support:appcompat-v7:22.+'
-
-    compile 'com.google.code.gson:gson:2.8.2'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.5.1'
-    testCompile 'org.robolectric:shadows-multidex:3.5.1'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.robolectric:robolectric:3.8'
+    testImplementation 'org.robolectric:shadows-multidex:3.8'
 
     // PowerMock
     def powerMockVersion = '1.7.3'
-    testCompile "org.powermock:powermock-module-junit4:$powerMockVersion"
-    testCompile "org.powermock:powermock-module-junit4-rule:$powerMockVersion"
-    testCompile "org.powermock:powermock-api-mockito2:$powerMockVersion"
-    testCompile "org.powermock:powermock-classloading-xstream:$powerMockVersion"
+    testImplementation "org.powermock:powermock-module-junit4:$powerMockVersion"
+    testImplementation "org.powermock:powermock-module-junit4-rule:$powerMockVersion"
+    testImplementation "org.powermock:powermock-api-mockito2:$powerMockVersion"
+    testImplementation "org.powermock:powermock-classloading-xstream:$powerMockVersion"
 
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }
