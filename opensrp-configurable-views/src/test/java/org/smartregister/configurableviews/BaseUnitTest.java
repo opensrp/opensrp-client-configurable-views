@@ -16,4 +16,5 @@ import org.robolectric.annotation.Config;
 @Config(constants = BuildConfig.class)
 @PowerMockIgnore({"org.mockito.*", "org.robolectric.*", "android.*"})
 public abstract class BaseUnitTest {
+    protected static final String DUMMY_TEST_STRING = "DUMMY_TEST_STRING";
 }
