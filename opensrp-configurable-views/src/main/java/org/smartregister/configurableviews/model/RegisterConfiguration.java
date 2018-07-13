@@ -13,6 +13,10 @@ public class RegisterConfiguration extends BaseConfiguration {
 	private String searchBarText;
 	
 	private List<String> searchableFields;
+
+	private List<Field> sortFields;
+
+	private List<Field> filterFields;
 	
 	public boolean isEnableAdvancedSearch() {
 		return enableAdvancedSearch;
@@ -53,5 +57,20 @@ public class RegisterConfiguration extends BaseConfiguration {
 	public void setSearchableFields(List<String> searchableFields) {
 		this.searchableFields = searchableFields;
 	}
-	
+
+	public List<Field> getSortFields() {
+		return sortFields;
+	}
+
+	public void setSortFields(List<Field> sortFields) {
+		this.sortFields = sortFields;
+	}
+
+	public List<Field> getFilterFields() {
+		return filterFields;
+	}
+
+	public void setFilterFields(List<Field> filterFields) {
+		this.filterFields = filterFields;
+	}
 }
