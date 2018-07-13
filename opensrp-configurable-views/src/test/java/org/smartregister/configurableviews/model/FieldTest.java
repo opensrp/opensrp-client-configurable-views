@@ -36,7 +36,8 @@ public class FieldTest extends BaseUnitTest {
     @Test
     public void testEqualsShouldReturnFalseIfParameterIsNull() {
         Field field = new Field();
-        Assert.assertFalse(field.equals(null));
+        Object randomObject = null;
+        Assert.assertFalse(field.equals(randomObject));
     }
 
     @Test
