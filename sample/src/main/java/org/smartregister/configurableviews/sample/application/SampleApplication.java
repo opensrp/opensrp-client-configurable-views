@@ -28,7 +28,7 @@ public class SampleApplication extends DrishtiApplication {
 
         //Initialize Modules
         CoreLibrary.init(context);
-        ConfigurableViewsLibrary.init(context, getRepository());
+        ConfigurableViewsLibrary.init(context);
 
         startSampleViewConfigService(getApplicationContext());
 
