@@ -43,7 +43,7 @@ public class ConfigurableViewsLibrary {
 
     public ConfigurableViewsRepository getConfigurableViewsRepository() {
         if (configurableViewsRepository == null) {
-            configurableViewsRepository = new ConfigurableViewsRepository(getRepository());
+            configurableViewsRepository = new ConfigurableViewsRepository();
         }
         return configurableViewsRepository;
     }
