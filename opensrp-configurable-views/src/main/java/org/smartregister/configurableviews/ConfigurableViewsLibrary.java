@@ -5,7 +5,6 @@ import org.smartregister.Context;
 import org.smartregister.configurableviews.helper.ConfigurableViewsHelper;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
-import org.smartregister.repository.Repository;
 
 /**
  * Created by ndegwamartin on 16/02/2018.
@@ -17,15 +16,14 @@ public class ConfigurableViewsLibrary {
     public static Context context;
     private String password;
 
-    private Repository repository;
     private ConfigurableViewsRepository configurableViewsRepository;
     public static JsonSpecHelper jsonSpecHelper;
     private ConfigurableViewsHelper configurableViewsHelper;
 
-    public static void init(Context context_, Repository repository) {
+    public static void init(Context context_) {
         if (instance == null) {
             ConfigurableViewsLibrary.context = context_;
-            ConfigurableViewsLibrary.instance = new ConfigurableViewsLibrary(repository);
+            ConfigurableViewsLibrary.instance = new ConfigurableViewsLibrary();
             ConfigurableViewsLibrary.jsonSpecHelper = new JsonSpecHelper(context.applicationContext());
         }
     }
@@ -37,19 +35,11 @@ public class ConfigurableViewsLibrary {
         return instance;
     }
 
-    private ConfigurableViewsLibrary(Repository repository) {
-        this.repository = repository;
-    }
-
     public ConfigurableViewsRepository getConfigurableViewsRepository() {
         if (configurableViewsRepository == null) {
             configurableViewsRepository = new ConfigurableViewsRepository();
         }
         return configurableViewsRepository;
-    }
-
-    public Repository getRepository() {
-        return repository;
     }
 
     public static JsonSpecHelper getJsonSpecHelper() {
