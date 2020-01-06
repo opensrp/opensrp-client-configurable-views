@@ -17,10 +17,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ConfigurableViewsRepository extends BaseRepository {
     private static final String TAG = ConfigurableViewsRepository.class.getCanonicalName();
-    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 
     public static final String TABLE_NAME = "configurable_views";
     private static final String ID = "view_id";
@@ -47,9 +48,6 @@ public class ConfigurableViewsRepository extends BaseRepository {
     private static final String INDEX_SERVER_VERSION = "CREATE INDEX " + TABLE_NAME + "_" + SERVER_VERSION +
             "_index ON " + TABLE_NAME + "(" + SERVER_VERSION + " COLLATE NOCASE);";
 
-    public ConfigurableViewsRepository(Repository repository) {
-        super(repository);
-    }
 
     public static void createTable(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_SQL);
