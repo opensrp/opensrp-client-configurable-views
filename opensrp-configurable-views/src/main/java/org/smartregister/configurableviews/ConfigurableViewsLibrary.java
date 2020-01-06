@@ -65,4 +65,8 @@ public class ConfigurableViewsLibrary {
         }
         return configurableViewsHelper;
     }
+
+    public void destroy() {
+        instance = null;
+    }
 }
