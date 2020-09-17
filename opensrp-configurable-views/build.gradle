@@ -78,6 +78,8 @@ android {
             includeAndroidResources = true
          }
     }
+
+    defaultConfig.javaCompileOptions.annotationProcessorOptions.includeCompileClasspath = true
 }
 
 tasks.withType(Test) {

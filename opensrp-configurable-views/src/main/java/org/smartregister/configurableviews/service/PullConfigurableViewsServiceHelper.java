@@ -92,7 +92,7 @@ public class PullConfigurableViewsServiceHelper {
         }
 
 
-        Response resp = httpAgent.fetchWithCredentials(url, "", "");
+        Response resp = httpAgent.fetchWithCredentials(url, "");
         if (resp.isFailure()) {
             logError(url + " not returned data");
             return null;
