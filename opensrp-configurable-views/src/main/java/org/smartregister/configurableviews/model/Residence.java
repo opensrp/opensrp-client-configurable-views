@@ -2,11 +2,13 @@ package org.smartregister.configurableviews.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.smartregister.view.contract.IResidence;
+
 /**
  * Created by ndegwamartin on 13/10/2017.
  */
 
-public class Residence {
+public class Residence implements IResidence {
 
     private String parent;
 

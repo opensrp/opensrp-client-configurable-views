@@ -1,6 +1,8 @@
 package org.smartregister.configurableviews.model;
 
-public abstract class BaseConfiguration {
+import org.smartregister.view.contract.IBaseConfiguration;
+
+public abstract class BaseConfiguration implements IBaseConfiguration {
 
     private String language;
 

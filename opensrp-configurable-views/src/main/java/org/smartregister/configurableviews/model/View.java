@@ -1,18 +1,21 @@
 package org.smartregister.configurableviews.model;
 
+import org.smartregister.view.contract.IResidence;
+import org.smartregister.view.contract.IView;
+
 import java.util.Map;
 
 /**
  * Created by ndegwamartin on 13/10/2017.
  */
 
-public class View {
+public class View implements IView {
 
     private String type;
 
     private String orientation;
 
-    private Residence residence;
+    private IResidence residence;
 
     private boolean visible = true;
 
@@ -72,11 +75,12 @@ public class View {
         this.label = label;
     }
 
-    public Residence getResidence() {
+    public IResidence getResidence() {
         return residence;
     }
 
-    public void setResidence(Residence residence) {
+
+    public void setResidence(IResidence residence) {
         this.residence = residence;
     }
 
