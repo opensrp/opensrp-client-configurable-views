@@ -27,10 +27,10 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build project
-        run: ./gradlew opensrp-configurable-views:build --stacktrace
+        run: ./gradlew opensrp-configurable-views:jacocoTestReport --stacktrace
       - name: Run coveralls task
         run: ./gradlew opensrp-configurable-views:coveralls --stacktrace
-      - name: Build APK (Maintain stability)
-        run: ./gradlew opensrp-configurable-views:assembleDebug --stacktrace
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+      - name: Build APK (Maintain stability)
+        run: ./gradlew opensrp-configurable-views:assembleDebug --stacktrace
