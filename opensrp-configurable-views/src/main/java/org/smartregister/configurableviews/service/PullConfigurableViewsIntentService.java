@@ -2,7 +2,7 @@ package org.smartregister.configurableviews.service;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.smartregister.Context;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
