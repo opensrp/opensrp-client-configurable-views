@@ -14,6 +14,7 @@ import org.smartregister.configurableviews.R;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
+import org.smartregister.view.contract.IView;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -62,13 +63,13 @@ public class ConfigurableViewsHelper {
         }
     }
 
-    public Set<View> getRegisterActiveColumns(String identifier) {
-        Set<View> visibleColumns = new TreeSet<>(new ViewPositionComparator());
+    public Set<IView> getRegisterActiveColumns(String identifier) {
+        Set<IView> visibleColumns = new TreeSet<>(new ViewPositionComparator());
         int maxColumns = viewConfigurations.get(identifier).getViews().size();
         maxColumns = !isTabletSize && maxColumns > 3 ? 3 : maxColumns;
-        for (View view : viewConfigurations.get(identifier).getViews()) {
+        for (IView view : viewConfigurations.get(identifier).getViews()) {
             if (view.isVisible())
-                visibleColumns.add(view);
+                visibleColumns.add((View) view);
         }
         if (!isTabletSize && visibleColumns.size() > maxColumns) {
             View[] columnsArray = visibleColumns.toArray(new View[]{});

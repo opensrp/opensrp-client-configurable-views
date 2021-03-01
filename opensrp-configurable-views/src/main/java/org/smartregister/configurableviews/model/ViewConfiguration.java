@@ -1,5 +1,9 @@
 package org.smartregister.configurableviews.model;
 
+import org.smartregister.view.contract.IBaseConfiguration;
+import org.smartregister.view.contract.IView;
+import org.smartregister.view.contract.IViewConfiguration;
+
 import java.util.List;
 import java.util.Map;
 
@@ -7,13 +11,13 @@ import java.util.Map;
  * Created by ndegwamartin on 13/10/2017.
  */
 
-public class ViewConfiguration {
+public class ViewConfiguration implements IViewConfiguration {
 
     private String identifier;
 
-    private BaseConfiguration metadata;
+    private IBaseConfiguration metadata;
 
-    private List<View> views;
+    private List<IView> views;
 
     private Map<String, String> labels;
 
@@ -27,19 +31,19 @@ public class ViewConfiguration {
         this.identifier = identifier;
     }
 
-    public BaseConfiguration getMetadata() {
+    public IBaseConfiguration getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(BaseConfiguration metadata) {
+    public void setMetadata(IBaseConfiguration metadata) {
         this.metadata = metadata;
     }
 
-    public List<View> getViews() {
+    public List<IView> getViews() {
         return views;
     }
 
-    public void setViews(List<View> views) {
+    public void setViews(List<IView> views) {
         this.views = views;
     }
 

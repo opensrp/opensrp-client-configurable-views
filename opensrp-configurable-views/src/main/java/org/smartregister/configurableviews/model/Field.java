@@ -1,6 +1,8 @@
 package org.smartregister.configurableviews.model;
 
-public class Field {
+import org.smartregister.view.contract.IField;
+
+public class Field implements IField {
     private String displayName;
     private String dbAlias;
 

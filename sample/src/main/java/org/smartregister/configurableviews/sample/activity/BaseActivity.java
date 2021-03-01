@@ -1,6 +1,6 @@
 package org.smartregister.configurableviews.sample.activity;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,11 +16,14 @@ import org.smartregister.configurableviews.sample.helper.RenderContactScreeningC
 import org.smartregister.configurableviews.sample.helper.RenderPatientDemographicCardHelper;
 import org.smartregister.configurableviews.sample.helper.RenderPatientFollowupCardHelper;
 import org.smartregister.configurableviews.sample.repository.SampleDataFactory;
+import org.smartregister.view.contract.IView;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+
+import timber.log.Timber;
 
 /**
  * Created by ndegwamartin on 27/02/2018.
@@ -81,17 +84,17 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
             } else {
                 ViewConfiguration detailsView = ConfigurableViewsLibrary.getInstance().getJsonSpecHelper().getConfigurableView(jsonString);
-                List<org.smartregister.configurableviews.model.View> views = detailsView.getViews();
+                List<IView> views = detailsView.getViews();
                 if (!views.isEmpty()) {
-                    Collections.sort(views, new Comparator<org.smartregister.configurableviews.model.View>() {
+                    Collections.sort(views, new Comparator<IView>() {
                         @Override
-                        public int compare(org.smartregister.configurableviews.model.View viewA, org.smartregister.configurableviews.model.View viewB) {
+                        public int compare(IView viewA, IView viewB) {
                             return viewA.getResidence().getPosition() - viewB.getResidence().getPosition();
                         }
                     });
 
                     LinearLayout viewParent = (LinearLayout) rootView.findViewById(getContainerViewId());
-                    for (org.smartregister.configurableviews.model.View componentView : views) {
+                    for (IView componentView : views) {
 
                         try {
                             if (componentView.getResidence().getParent() == null) {
@@ -138,7 +141,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
                                 }
                             }
                         } catch (Exception e) {
-                            Log.e(TAG, e.getMessage());
+                            Timber.e(e);
                         }
                     }
                 } else {
@@ -148,7 +151,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             }
         } catch (Exception e) {
 
-            Log.e(TAG, e.getMessage());
+            Timber.e(e);
         }
 
     }
